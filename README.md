@@ -1,4 +1,4 @@
-# todo-list--vue3
+#todo-list--vue3-tailwind-mirage
 
 ## Project setup
 ```
