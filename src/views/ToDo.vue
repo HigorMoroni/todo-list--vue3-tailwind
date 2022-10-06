@@ -60,7 +60,7 @@
           >
             <div class="flex items-center justify-center mr-2">
               <button class="text-gray-400">
-                <font-awesome-icon :icon="['fas', 'check']" />
+                <fa-icon :icon="['fas', 'check']" />
               </button>
             </div>
 
@@ -86,7 +86,7 @@
 
             <div class="ml-auto flex items-center justify-center">
               <button class="focus:outline-none text-gray-500">
-                <font-awesome-icon :icon="['far', 'trash-can']" />
+                <fa-icon :icon="['far', 'trash-can']" />
               </button>
             </div>
           </div>
@@ -105,7 +105,7 @@
           >
             <div class="flex items-center justify-center mr-2">
               <button class="text-green-600">
-                <font-awesome-icon 
+                <fa-icon 
                   :icon="['fas', 'check']"
                 />
               </button>
@@ -135,7 +135,7 @@
 
             <div class="ml-auto flex items-center justify-center">
               <button class="focus:outline-none text-gray-500">
-                <font-awesome-icon :icon="['far', 'trash-can']" />
+                <fa-icon :icon="['far', 'trash-can']" />
               </button>
             </div>
           </div>
