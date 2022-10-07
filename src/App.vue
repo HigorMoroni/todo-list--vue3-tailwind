@@ -3,10 +3,10 @@
 </template>
 
 <script>
-import ToDo from './views/ToDo';
+import ToDo from "./views/ToDo";
 
 export default {
-  name: 'App',
-  components: {ToDo}
-}
+  name: "App",
+  components: { ToDo },
+};
 </script>
