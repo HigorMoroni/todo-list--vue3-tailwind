@@ -6,8 +6,8 @@
       <AddTodoForm />
       <LoaderSpinner v-if="isLoading" />
       <template v-else>
-        <TodoEmpty v-if="!$store.state.todos.length" />
-        <TodoItems v-else />
+        <TodoItems v-if="$store.state.todos.length" />
+        <TodoEmpty v-else />
       </template>
     </div>
   </div>

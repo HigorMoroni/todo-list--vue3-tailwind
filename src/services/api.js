@@ -21,29 +21,22 @@ new Server({
   },
   routes() {
     this.namespace = "api";
-    this.timing = 1000;
+    this.timing = 200;
 
     this.get("/todos", (schema) => {
       return schema.db.todos;
     });
 
-    this.post("/todos", (schema, request) => {
-      const todo = JSON.parse(request.requestBody).data;
-
-      return schema.db.todos.insert({
-        title: todo,
-        completed: false,
-      });
+    this.post("/todos", (schema, { requestBody }) => {
+      return schema.db.todos.insert({ title: requestBody, completed: false });
     });
 
-    this.patch("/todos/:id", (schema, request) => {
-      const todo = JSON.parse(request.requestBody).data;
-
-      return schema.db.todos.update(todo.id, todo);
+    this.patch("/todos/:id", (schema, { params: { id }, requestBody }) => {
+      return schema.db.todos.update(id, JSON.parse(requestBody));
     });
 
-    this.delete("/todos/:id", (schema, request) => {
-      return schema.db.todos.remove(request.params.id);
+    this.delete("/todos/:id", (schema, { params: { id } }) => {
+      return schema.db.todos.remove(id);
     });
   },
 });
