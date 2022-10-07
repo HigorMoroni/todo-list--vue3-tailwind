@@ -21,6 +21,7 @@ new Server({
   },
   routes() {
     this.namespace = "api";
+    this.timing = 1000;
 
     this.get("/todos", (schema) => {
       return schema.db.todos;
