@@ -32,6 +32,7 @@
 </template>
 
 <script setup>
+// PROPS
 const props = defineProps({
   color: {
     type: String,

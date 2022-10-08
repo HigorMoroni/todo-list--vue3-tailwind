@@ -14,26 +14,38 @@
 </template>
 
 <script setup>
+// HOOKS
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
 
-import LoaderSpinner from "../components/LoaderSpinner.vue";
-import AddTodoForm from "../components/AddTodoForm.vue";
-import TodoItems from "../components/TodoItems.vue";
+// COMPONENTS
+import LoaderSpinner from "@/components/LoaderSpinner.vue";
+import AddTodoForm from "@/components/AddTodoForm.vue";
+import TodoItems from "@/components/TodoItems.vue";
 import TodoEmpty from "@/components/TodoEmpty.vue";
 
+// STORE
 const store = useStore();
 
+// REFS
 const isLoading = ref(false);
 
-const hasTodos = computed(() => store.state.todos.length);
+// COMPUTEDS
+/**
+ * It returns the existence of at least one todo in the store
+ * @return {Boolean}
+ */
+const hasTodos = computed(() => !!store.state.todos.length);
 
+// METHODS
+/**
+ * It get all todos in the store
+ */
 const getTodos = () => {
   isLoading.value = true;
   store.dispatch("getTodos").finally(() => {
     isLoading.value = false;
   });
 };
-
 getTodos();
 </script>

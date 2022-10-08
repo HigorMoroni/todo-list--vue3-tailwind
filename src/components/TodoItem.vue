@@ -35,11 +35,14 @@
 </template>
 
 <script setup>
+// HOOKS
 import { ref, computed } from "vue";
 import { useStore } from "vuex";
 
+// COMPONENTS
 import LoaderSpinner from "./LoaderSpinner.vue";
 
+// PROPS
 const props = defineProps({
   id: {
     type: String,
@@ -55,33 +58,63 @@ const props = defineProps({
   },
 });
 
+// STORE
 const store = useStore();
 
+// REFS
 const currentTitle = ref(props.title);
 const currentStatus = ref(props.isCompleted);
 const isLoading = ref(false);
 
+// COMPUTEDS
+/**
+ * It returns the appropriate color for the check icon
+ * according to the item's status
+ * @return {String}
+ */
 const checkColor = computed(() =>
   currentStatus.value ? "text-green-600" : "text-gray-400"
 );
+/**
+ * It returns tailwind classes needed
+ * to visually define TODOS as complete
+ * @return {Array || String}
+ */
 const titleStyle = computed(() =>
   currentStatus.value ? ["line-through", "italic"] : ""
 );
 
+// METHODS
+/**
+ * It updates some information of the TODOS in the store and server
+ * @param {Object} payload
+ */
 const updateTodo = (payload) => {
   const { id } = props;
 
   store.dispatch("updateTodo", { id, ...payload });
 };
+/**
+ * It takes focus off the edited input
+ * and checks if it was left blank to delete it,
+ * if not blank, updates in store and server
+ * @param {Object} event
+ */
 const handleTitleChange = (event) => {
   event.target.blur();
   if (!currentTitle.value) handleDelete();
   updateTodo({ title: currentTitle.value });
 };
+/**
+ * It changes the current status of TODO and updates in store and server
+ */
 const handleStatusChange = () => {
   currentStatus.value = !currentStatus.value;
   updateTodo({ completed: currentStatus.value });
 };
+/**
+ * It deletes the selected TODO from store and server
+ */
 const handleDelete = () => {
   isLoading.value = true;
   store.dispatch("deleteTodo", props.id);

@@ -21,16 +21,26 @@
 </template>
 
 <script setup>
+// HOOKS
 import { ref } from "vue";
 import { useStore } from "vuex";
 
+// COMPONENTS
 import LoaderSpinner from "./LoaderSpinner.vue";
 
+// STORE
 const store = useStore();
 
+// REFS
 const title = ref("");
 const isLoading = ref(false);
 
+// METHODS
+/**
+ * It checks if the title was empty so as not to send the request,
+ * if it is not empty it saves the TODO in the store and server
+ * and leaves the input blank again
+ */
 const addTodo = () => {
   if (!title.value) return;
 
