@@ -6,7 +6,7 @@
       <AddTodoForm />
       <LoaderSpinner v-if="isLoading" />
       <template v-else>
-        <TodoItems v-if="$store.state.todos.length" />
+        <TodoItems v-if="hasTodos" />
         <TodoEmpty v-else />
       </template>
     </div>
@@ -14,25 +14,35 @@
 </template>
 
 <script>
+import { computed, ref } from "vue";
+import { useStore } from "vuex";
+
 import LoaderSpinner from "../components/LoaderSpinner.vue";
 import AddTodoForm from "../components/AddTodoForm.vue";
 import TodoItems from "../components/TodoItems.vue";
 import TodoEmpty from "@/components/TodoEmpty.vue";
 
 export default {
+  name: "ToDo",
   components: { LoaderSpinner, AddTodoForm, TodoItems, TodoEmpty },
 
-  data() {
-    return {
-      isLoading: false,
-    };
-  },
+  setup() {
+    const store = useStore();
 
-  created() {
-    this.isLoading = true;
-    this.$store.dispatch("getTodos").finally(() => {
-      this.isLoading = false;
-    });
+    const isLoading = ref(false);
+
+    const hasTodos = computed(() => store.state.todos.length);
+
+    const getTodos = () => {
+      isLoading.value = true;
+      store.dispatch("getTodos").finally(() => {
+        isLoading.value = false;
+      });
+    };
+
+    getTodos();
+
+    return { isLoading, hasTodos };
   },
 };
 </script>

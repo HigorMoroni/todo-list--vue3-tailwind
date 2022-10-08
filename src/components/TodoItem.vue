@@ -35,6 +35,9 @@
 </template>
 
 <script>
+import { ref, computed } from "vue";
+import { useStore } from "vuex";
+
 import LoaderSpinner from "./LoaderSpinner.vue";
 
 export default {
@@ -53,43 +56,51 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      currentTitle: this.title,
-      currentStatus: this.isCompleted,
 
-      isLoading: false,
+  setup(props) {
+    const store = useStore();
+
+    const currentTitle = ref(props.title);
+    const currentStatus = ref(props.isCompleted);
+    const isLoading = ref(false);
+
+    const checkColor = computed(() =>
+      currentStatus.value ? "text-green-600" : "text-gray-400"
+    );
+
+    const titleStyle = computed(() =>
+      currentStatus.value ? ["line-through", "italic"] : ""
+    );
+
+    const updateTodo = (payload) => {
+      const { id } = props;
+
+      store.dispatch("updateTodo", { id, ...payload });
     };
-  },
-  computed: {
-    checkColor() {
-      return this.currentStatus ? "text-green-600" : "text-gray-400";
-    },
-    titleStyle() {
-      return this.currentStatus ? ["line-through", "italic"] : "";
-    },
-  },
-  methods: {
-    updateTodo(payload) {
-      this.$store.dispatch("updateTodo", payload);
-    },
-    handleTitleChange(event) {
-      const { id, currentTitle } = this;
+    const handleTitleChange = (event) => {
       event.target.blur();
-      if (!currentTitle) {
-        this.handleDelete();
-      }
-      this.updateTodo({ id, data: { title: currentTitle } });
-    },
-    handleStatusChange() {
-      const { id, currentStatus } = this;
-      this.currentStatus = !currentStatus;
-      this.updateTodo({ id, data: { completed: !currentStatus } });
-    },
-    handleDelete() {
-      this.isLoading = true;
-      this.$store.dispatch("deleteTodo", this.id);
-    },
+      if (!currentTitle.value) handleDelete();
+      updateTodo({ title: currentTitle.value });
+    };
+    const handleStatusChange = () => {
+      currentStatus.value = !currentStatus.value;
+      updateTodo({ completed: currentStatus.value });
+    };
+    const handleDelete = () => {
+      isLoading.value = true;
+      store.dispatch("deleteTodo", props.id);
+    };
+
+    return {
+      currentTitle,
+      currentStatus,
+      isLoading,
+      checkColor,
+      titleStyle,
+      handleTitleChange,
+      handleStatusChange,
+      handleDelete,
+    };
   },
 };
 </script>

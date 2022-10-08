@@ -20,26 +20,32 @@
   </form>
 </template>
 <script>
+import { ref } from "vue";
+import { useStore } from "vuex";
+
 import LoaderSpinner from "./LoaderSpinner.vue";
+
 export default {
+  name: "AddTodoForm",
   components: { LoaderSpinner },
-  data() {
-    return {
-      title: "",
-      isLoading: false,
-    };
-  },
 
-  methods: {
-    addTodo() {
-      if (!this.title) return;
+  setup() {
+    const store = useStore();
 
-      this.isLoading = true;
-      this.$store.dispatch("setTodo", this.title).finally(() => {
-        this.title = "";
-        this.isLoading = false;
+    const title = ref("");
+    const isLoading = ref(false);
+
+    const addTodo = () => {
+      if (!title.value) return;
+
+      isLoading.value = true;
+      store.dispatch("setTodo", title.value).finally(() => {
+        title.value = "";
+        isLoading.value = false;
       });
-    },
+    };
+
+    return { title, isLoading, addTodo };
   },
 };
 </script>

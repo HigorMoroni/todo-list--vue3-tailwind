@@ -3,7 +3,3 @@
     Você ainda não tem nenhuma tarefa.
   </div>
 </template>
-
-<script>
-export default {};
-</script>

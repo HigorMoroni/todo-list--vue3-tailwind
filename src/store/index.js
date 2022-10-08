@@ -50,7 +50,7 @@ export default createStore({
       });
     },
 
-    updateTodo({ commit }, { id, data }) {
+    updateTodo({ commit }, { id, ...data }) {
       return axios.patch(`/api/todos/${id}`, data).then(({ data }) => {
         commit("storeTodo", { id, ...data });
       });

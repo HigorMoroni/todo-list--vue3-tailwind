@@ -12,7 +12,6 @@
 
 <script>
 import TodoItem from "./TodoItem.vue";
-export default {
-  components: { TodoItem },
-};
+
+export default { components: { TodoItem } };
 </script>
