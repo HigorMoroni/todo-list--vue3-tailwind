@@ -10,7 +10,7 @@ Todo List
   </a>
 </p>
 
-## Veja a versão publicada [todo-list-two-smoky.vercel.app](aqui).
+## Veja a versão publicada [aqui](https://todo-list-two-smoky.vercel.app).
 
 <h3 align="center">  
   <a href="#information_source-sobre">Sobre</a> |
