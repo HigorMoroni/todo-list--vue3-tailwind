@@ -18,7 +18,7 @@ Todo List
   <a href="#licença">Licença</a> 
 </h3>
 
-<img src="https://vercel.com/48e1daa2-2e4e-461d-8e2f-843865342f02" width="1200">
+<img src="./public/ss.png" width="1200">
 
 ## :information_source: Sobre
 
