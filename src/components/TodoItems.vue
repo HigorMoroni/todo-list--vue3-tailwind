@@ -10,8 +10,6 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import TodoItem from "./TodoItem.vue";
-
-export default { components: { TodoItem } };
 </script>

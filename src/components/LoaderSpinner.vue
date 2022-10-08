@@ -13,7 +13,7 @@
         cx="50"
         cy="50"
         fill="none"
-        :stroke="color"
+        :stroke="props.color"
         stroke-width="10"
         r="35"
         stroke-dasharray="164.93361431346415 56.97787143782138"
@@ -31,13 +31,11 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    color: {
-      type: String,
-      default: "#bee3f8",
-    },
+<script setup>
+const props = defineProps({
+  color: {
+    type: String,
+    default: "#bee3f8",
   },
-};
+});
 </script>

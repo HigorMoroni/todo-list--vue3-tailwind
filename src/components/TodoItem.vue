@@ -34,73 +34,56 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { ref, computed } from "vue";
 import { useStore } from "vuex";
 
 import LoaderSpinner from "./LoaderSpinner.vue";
 
-export default {
-  components: { LoaderSpinner },
-  props: {
-    id: {
-      type: String,
-      required: true,
-    },
-    title: {
-      type: String,
-      required: true,
-    },
-    isCompleted: {
-      type: Boolean,
-      required: true,
-    },
+const props = defineProps({
+  id: {
+    type: String,
+    required: true,
   },
-
-  setup(props) {
-    const store = useStore();
-
-    const currentTitle = ref(props.title);
-    const currentStatus = ref(props.isCompleted);
-    const isLoading = ref(false);
-
-    const checkColor = computed(() =>
-      currentStatus.value ? "text-green-600" : "text-gray-400"
-    );
-
-    const titleStyle = computed(() =>
-      currentStatus.value ? ["line-through", "italic"] : ""
-    );
-
-    const updateTodo = (payload) => {
-      const { id } = props;
-
-      store.dispatch("updateTodo", { id, ...payload });
-    };
-    const handleTitleChange = (event) => {
-      event.target.blur();
-      if (!currentTitle.value) handleDelete();
-      updateTodo({ title: currentTitle.value });
-    };
-    const handleStatusChange = () => {
-      currentStatus.value = !currentStatus.value;
-      updateTodo({ completed: currentStatus.value });
-    };
-    const handleDelete = () => {
-      isLoading.value = true;
-      store.dispatch("deleteTodo", props.id);
-    };
-
-    return {
-      currentTitle,
-      currentStatus,
-      isLoading,
-      checkColor,
-      titleStyle,
-      handleTitleChange,
-      handleStatusChange,
-      handleDelete,
-    };
+  title: {
+    type: String,
+    required: true,
   },
+  isCompleted: {
+    type: Boolean,
+    required: true,
+  },
+});
+
+const store = useStore();
+
+const currentTitle = ref(props.title);
+const currentStatus = ref(props.isCompleted);
+const isLoading = ref(false);
+
+const checkColor = computed(() =>
+  currentStatus.value ? "text-green-600" : "text-gray-400"
+);
+const titleStyle = computed(() =>
+  currentStatus.value ? ["line-through", "italic"] : ""
+);
+
+const updateTodo = (payload) => {
+  const { id } = props;
+
+  store.dispatch("updateTodo", { id, ...payload });
+};
+const handleTitleChange = (event) => {
+  event.target.blur();
+  if (!currentTitle.value) handleDelete();
+  updateTodo({ title: currentTitle.value });
+};
+const handleStatusChange = () => {
+  currentStatus.value = !currentStatus.value;
+  updateTodo({ completed: currentStatus.value });
+};
+const handleDelete = () => {
+  isLoading.value = true;
+  store.dispatch("deleteTodo", props.id);
 };
 </script>

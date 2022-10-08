@@ -2,11 +2,6 @@
   <to-do />
 </template>
 
-<script>
+<script setup>
 import ToDo from "./views/ToDo";
-
-export default {
-  name: "App",
-  components: { ToDo },
-};
 </script>

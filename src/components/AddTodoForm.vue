@@ -19,33 +19,25 @@
     </button>
   </form>
 </template>
-<script>
+
+<script setup>
 import { ref } from "vue";
 import { useStore } from "vuex";
 
 import LoaderSpinner from "./LoaderSpinner.vue";
 
-export default {
-  name: "AddTodoForm",
-  components: { LoaderSpinner },
+const store = useStore();
 
-  setup() {
-    const store = useStore();
+const title = ref("");
+const isLoading = ref(false);
 
-    const title = ref("");
-    const isLoading = ref(false);
+const addTodo = () => {
+  if (!title.value) return;
 
-    const addTodo = () => {
-      if (!title.value) return;
-
-      isLoading.value = true;
-      store.dispatch("setTodo", title.value).finally(() => {
-        title.value = "";
-        isLoading.value = false;
-      });
-    };
-
-    return { title, isLoading, addTodo };
-  },
+  isLoading.value = true;
+  store.dispatch("setTodo", title.value).finally(() => {
+    title.value = "";
+    isLoading.value = false;
+  });
 };
 </script>

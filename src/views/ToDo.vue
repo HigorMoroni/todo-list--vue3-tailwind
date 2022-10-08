@@ -13,7 +13,7 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
 
@@ -22,27 +22,18 @@ import AddTodoForm from "../components/AddTodoForm.vue";
 import TodoItems from "../components/TodoItems.vue";
 import TodoEmpty from "@/components/TodoEmpty.vue";
 
-export default {
-  name: "ToDo",
-  components: { LoaderSpinner, AddTodoForm, TodoItems, TodoEmpty },
+const store = useStore();
 
-  setup() {
-    const store = useStore();
+const isLoading = ref(false);
 
-    const isLoading = ref(false);
+const hasTodos = computed(() => store.state.todos.length);
 
-    const hasTodos = computed(() => store.state.todos.length);
-
-    const getTodos = () => {
-      isLoading.value = true;
-      store.dispatch("getTodos").finally(() => {
-        isLoading.value = false;
-      });
-    };
-
-    getTodos();
-
-    return { isLoading, hasTodos };
-  },
+const getTodos = () => {
+  isLoading.value = true;
+  store.dispatch("getTodos").finally(() => {
+    isLoading.value = false;
+  });
 };
+
+getTodos();
 </script>
