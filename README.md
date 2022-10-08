@@ -18,7 +18,7 @@ Todo List
   <a href="#licença">Licença</a> 
 </h3>
 
-<img src="./server/uploads/index.png" width="1200">
+<img src="[./server/uploads/index.png](https://todo-list-two-smoky.vercel.app/)" width="1200">
 
 ## :information_source: Sobre
 
@@ -32,7 +32,12 @@ Um projeto para estudo pessoal da stack que estou me desenvolvendo atualmente
 
 O projeto foi desenvolvido utilizando as seguintes tecnologias:
 
-- Vue3, Composition API, Tailwind, PostCSS, Mirage.js, Axios
+- Vue3
+- Composition API
+- Tailwind
+- PostCSS
+- Mirage.js
+- Axios
 
 ## :link: Como contribuir
 
